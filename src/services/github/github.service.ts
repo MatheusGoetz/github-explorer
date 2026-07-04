@@ -6,3 +6,7 @@ export async function getUser(username: string): Promise<GithubUser> {
 
   return data
 }
+
+export const githubService = {
+  getUser,
+}
