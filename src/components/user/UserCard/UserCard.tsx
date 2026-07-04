@@ -4,50 +4,59 @@ type UserCardProps = {
   user: GithubUser
 }
 
-function UserCard({user}: UserCardProps){
+export default function UserCard({user}: UserCardProps){
   return (
-    <section className='mx-auto mt-8 max-w-xl rounded-xl border border-gray-200 bg-white p-6 shadow-sm'>
-      <div className='flex items-center gap-6'>
-        <img src={user.avatar_url} alt={user.name} className='h-28 w-8 rounded-full'/>
+    <section className='mx-auto mt-8 max-w-2xl rounded-2xl border border-gray-200 bg-white p-8 shadow-lg'>
+      <div className='flex flex-col items-center'>
+        <img src={user.avatar_url} alt={user.login} className='h-32 w-32 rounded-full border-4 border-gray-200'/>
 
-        <div className='flex-1'>
-          <h2 className='text-2xl font-bold'>
-            {user.name || user.login}
-          </h2>
+        <h2 className='mt-6 text-3xl font-bold'>{user.name ?? user.login}</h2>
 
-          <p className='mt-2 text-gray-600'>
-            {user.bio || "Esse usuário não possui bio."}
+        <p className='mt-2 text-gray-600'>{user.bio ?? "Sem biografia"}</p>
+
+        {user.location && (
+          <p className='mt-3 text-gray-500'>
+            📍 {user.location}
           </p>
+        )}
 
-          {user.location && (
-            <p className='mt-3'>
-              📍{user.location}
-            </p>
-          )}
+        <div className='mt-8 flex gap-10'>
+          <div className='text-center'>
+            <h3 className='text-2xl font-bold'>
+              {user.followers}
+            </h3>
+
+            <span className='text-gray-500'>
+              Seguidores
+            </span>
+          </div>
+
+          <div className='text-center'>
+            <h3 className='text-2xl font-bold'>
+              {user.following}
+            </h3>
+
+            <span className='text-gray-500'>
+              Seguindo
+            </span>
+          </div>
+
+          <div className='text-center'>
+            <h3 className='text-2xl font-bold'>
+              {user.public_repo}
+            </h3>
+
+            <span className='text-gray-500'>
+              Repositórios
+            </span>
+          </div>
         </div>
-      </div>
 
-      <div className='mt-8 flex justify-between rounded-lg bg-gray-100 p-4'>
-        <div className='text-center'>
-          <strong>{user.followers}</strong>
-
-          <p className='text-sm text-gray-500'>Seguidores</p>
-        </div>
-
-        <div className='text-center'>
-          <strong>{user.following}</strong>
-
-          <p className='text-sm text-gray-500'>Seguindo</p>
-        </div>
-
-        <div className='text-center'>
-          <strong>{user.public_repo}</strong>
-
-          <p className='text-sm text-gray-500'>Repositórios</p>
-        </div>
+        <a href={user.html_url} target='blank' rel='noopener noreferrer' className='mt-8 rounded-lg bg-gray-900 px-6 py-3 font-medium text-white transition hover:bg-black'>
+          Abri perfil
+        </a>
       </div>
     </section>
   );
 }
 
-export default UserCard;

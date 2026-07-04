@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Header, SearchBar } from "@/components";
+import { Header, SearchBar, UserCard } from "@/components";
 import { useGithubUser } from "@/hooks/useGithubUser";
 
 function Home() {
@@ -21,11 +21,9 @@ function Home() {
       
       {isPending && <p>Carregando...</p>}
 
-      {isError && <p>{error.message}</p>}
+      {isError && <p className="mt-6 text-center text-red-500">{error.message}</p>}
 
-      {user && (
-        <pre>{JSON.stringify(user, null, 2)}</pre>
-      )}
+      {user && <UserCard user={user}/>}
     </>
   );
 }
