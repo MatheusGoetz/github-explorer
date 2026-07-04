@@ -2,19 +2,21 @@ import React, { useState } from "react";
 
 type SearchBarProps = {
   onSearch: (username: string) => void;
+  isLoading?: boolean;
 };
 
-function SearchBar({onSearch}: SearchBarProps){
-  const [username, setUsername] = useState("");
+function SearchBar({onSearch, isLoading = false}: SearchBarProps){
+  const [search, setSearch] = useState("");
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const trimmedUsername = username.trim();
+    const username = search.trim();
 
-    if(!trimmedUsername) return;
+    if(!username) return;
+    if(isLoading) return;
 
-    onSearch(trimmedUsername);
+    onSearch(username);
   }
 
   return (
@@ -25,16 +27,18 @@ function SearchBar({onSearch}: SearchBarProps){
       <input
       type="text"
       placeholder="Digite um usuário do GitHub..."
-      value={username}
-      onChange={(event) => setUsername(event.target.value)}
+      value={search}
+      disabled={isLoading}
+      onChange={(event) => setSearch(event.target.value)}
       className="flex-1 rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-gray-900"
       />
 
       <button
       type="submit"
+      disabled={isLoading}
       className="rounded-lg bg-black px-6 py-3 font-medium text-white transition hover:opacity-90"
       >
-        Pesquisar
+        {isLoading ? "Pesquisando..." : "Pesquisar"}
       </button>
     </form>
   );

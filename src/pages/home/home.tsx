@@ -17,7 +17,7 @@ function Home() {
     <>
       <Header />
 
-      <SearchBar onSearch={setUsername} />
+      <SearchBar onSearch={setUsername}/>
       
       {isPending && <p>Carregando...</p>}
 
