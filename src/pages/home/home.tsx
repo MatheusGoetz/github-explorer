@@ -3,10 +3,10 @@ import { useState } from "react";
 import { Header, SearchBar, UserCard } from "@/components";
 import { useGithubUser } from "@/hooks/useGithubUser";
 
-function Home() {
+export default function Home() {
   const [username, setUsername] = useState("");
 
-   const {
+  const {
     data: user,
     isPending,
     isError,
@@ -18,7 +18,7 @@ function Home() {
       <Header />
 
       <SearchBar onSearch={setUsername}/>
-      
+
       {isPending && <p>Carregando...</p>}
 
       {isError && <p className="mt-6 text-center text-red-500">{error.message}</p>}
@@ -27,5 +27,3 @@ function Home() {
     </>
   );
 }
-
-export default Home;
