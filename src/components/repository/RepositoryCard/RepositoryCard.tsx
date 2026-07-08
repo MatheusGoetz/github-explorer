@@ -1,5 +1,5 @@
 import type { GithubRepository } from "@/types";
-import {Star, GitFork, Code2, ExternalLink} from "lucide-react"
+import {Star, GitFork, Code2} from "lucide-react"
 
 interface RepositoryCardProps {
   repository: GithubRepository;

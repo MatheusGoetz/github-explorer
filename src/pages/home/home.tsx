@@ -1,31 +1,51 @@
 import { useState } from "react";
 
-import { Header, SearchBar, UserCard, RepositoryCard } from "@/components";
-import { useGithubUser } from "@/hooks/useGithubUser";
+import {
+  Header,
+  SearchBar,
+  UserCard,
+  RepositoryList
+} from "@/components";
+
+import { useGithub } from "@/hooks/useGithub";
 
 export default function Home() {
   const [username, setUsername] = useState("");
 
   const {
-    data: user,
-    isPending,
+    user,
+    repositories,
+    isLoading,
     isError,
-    error,
-  } = useGithubUser(username);
+  } = useGithub(username);
 
   return (
-    <>
+    <main className="mx-auto max-w-6xl px-6 py-10">
       <Header />
 
-      <SearchBar onSearch={setUsername}/>
+      <SearchBar
+        onSearch={setUsername}
+      />
 
-      {isPending && <p>Carregando...</p>}
+      {isLoading && (
+        <p className="mt-8 text-center">
+          Carregando...
+        </p>
+      )}
 
-      {isError && <p className="mt-6 text-center text-red-500">{error.message}</p>}
+      {isError && (
+        <p className="mt-8 text-center text-red-500">
+          Ocorreu um erro ao buscar os dados.
+        </p>
+      )}
 
-      {user && <UserCard user={user}/>}
+      {user && <UserCard user={user} />}
 
-      {RepositoryCard}
-    </>
+      {repositories && (
+        <RepositoryList
+          repositories={repositories}
+        />
+      )}
+    </main>
   );
 }
