@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Header, SearchBar, UserCard } from "@/components";
+import { Header, SearchBar, UserCard, RepositoryCard } from "@/components";
 import { useGithubUser } from "@/hooks/useGithubUser";
 
 export default function Home() {
@@ -24,6 +24,8 @@ export default function Home() {
       {isError && <p className="mt-6 text-center text-red-500">{error.message}</p>}
 
       {user && <UserCard user={user}/>}
+
+      {RepositoryCard}
     </>
   );
 }
