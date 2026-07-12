@@ -13,7 +13,9 @@ export default function Home() {
     <main className="mx-auto max-w-6xl px-6 py-10">
       <Header />
 
-      <SearchBar onSearch={setSearch} />
+      <SearchBar
+        onSearch={setSearch}
+      />
 
       <UserSection
         username={search}
@@ -21,7 +23,9 @@ export default function Home() {
       />
 
       {selectedUser && (
-        <RepositorySection username={selectedUser} />
+        <RepositorySection
+          username={selectedUser}
+        />
       )}
     </main>
   );

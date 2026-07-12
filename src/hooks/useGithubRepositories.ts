@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { githubService } from "@/services/github";
 
-export function useGithubRespositories(
+export function useGithubRepositories(
   username: string
 ) {
   return useQuery({

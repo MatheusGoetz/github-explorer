@@ -1,6 +1,9 @@
-import { RepositoryList, UserSkeleton } from "@/components";
-import { useGithubRespositories } from "@/hooks/useGithubRepositories"
+import {
+  RepositoryList,
+  RepositorySkeleton,
+} from "@/components";
 
+import { useGithubRepositories } from "@/hooks/useGithubRepositories";
 
 interface RepositorySectionProps {
   username: string;
@@ -13,23 +16,35 @@ export default function RepositorySection({
     data: repositories,
     isPending,
     isError,
-  } = useGithubRespositories(username);
+  } = useGithubRepositories(username);
 
   if (!username) return null;
 
   if (isPending) {
-    return <p>Carregando repositórios...</p>;
+    return <RepositorySkeleton />;
   }
 
   if (isError) {
-    return <UserSkeleton />
+    return (
+      <div className="mt-8 rounded-xl border border-red-200 bg-red-50 p-6 text-center">
+        <h2 className="text-lg font-semibold text-red-700">
+          Não foi possível carregar os repositórios.
+        </h2>
+      </div>
+    );
   }
 
   if (!repositories?.length) {
     return (
-      <p className="mt-6 text-center">
-        Nenhum repositório encontrado.
-      </p>
+      <div className="mt-8 rounded-xl border border-gray-200 bg-gray-50 p-8 text-center">
+        <h2 className="text-lg font-semibold">
+          Nenhum repositório encontrado.
+        </h2>
+
+        <p className="mt-2 text-gray-500">
+          Este usuário não possui repositórios públicos.
+        </p>
+      </div>
     );
   }
 
